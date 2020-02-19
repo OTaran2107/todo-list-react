@@ -1,0 +1,25 @@
+.todolist-header {
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+  color: #ffffff;
+  background-color:  #28a745;
+}
+
+.todolist-container {
+  border: 5px solid  #28a745;
+  border-radius: 10px;
+  margin: 50px;
+  width: 500px;
+  height: 100%;
+}
+
+.todo-modal-open-btn {
+  cursor: pointer;
+  position: relative;
+  bottom: 8px;
+  left: 355px;
+  width: 128px;
+}

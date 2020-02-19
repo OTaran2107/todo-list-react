@@ -1,0 +1,25 @@
+.todolist-item {
+  position: relative;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+.todolist-del-btn {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  width: 60px;
+}
+
+.todolist-edit-btn {
+  position: absolute;
+  right: 75px;
+  bottom: 7px;
+  width: 60px;
+}
