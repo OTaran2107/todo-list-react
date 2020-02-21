@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
+import propTypes from 'prop-types'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './ToDoModal.css'
 
 
-function ToDoModal({ toDo, headerTitle, show, onClose, onSave }) {
+function ToDoModal({toDo, headerTitle, show, onClose, onSave}) {
     const [toDoItem, setToDoItem] = useState(toDo);
 
     useEffect(() => {
@@ -61,5 +62,17 @@ function ToDoModal({ toDo, headerTitle, show, onClose, onSave }) {
         </div>
     )
 }
+
+ToDoModal.propTypes = {
+    show: propTypes.bool,
+    onClose: propTypes.func,
+    onSave: propTypes.func,
+    toDo: propTypes.shape({
+        id: propTypes.oneOfType([propTypes.number, propTypes.string]),
+        title: propTypes.string,
+        isDone: propTypes.bool
+    }),
+    headerTitle: propTypes.string
+};
 
 export default ToDoModal

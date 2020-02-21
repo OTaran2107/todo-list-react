@@ -1,7 +1,8 @@
 import React from 'react'
+import propTypes from 'prop-types'
 import './ToDoListItem.css'
 
-function ToDoListItem({ item, onItemClick, onDeleteClick, onChangeStatus }) {
+function ToDoListItem({item, onItemClick, onDeleteClick, onChangeStatus}) {
 
     const handleDeleteClick = (e) => {
         e.stopPropagation();
@@ -28,15 +29,26 @@ function ToDoListItem({ item, onItemClick, onDeleteClick, onChangeStatus }) {
                     className="btn-sm todolist-edit-btn"
                     onClick={handleEditClick}
                 >Edit
-            </button>
+                </button>
                 <button
                     className="btn-sm todolist-del-btn"
                     onClick={handleDeleteClick}
                 >Delete
-            </button>
+                </button>
             </td>
         </tr>
     )
 }
+
+ToDoListItem.propTypes = {
+    item: propTypes.shape({
+        id: propTypes.oneOfType([propTypes.number, propTypes.string]),
+        title: propTypes.string,
+        isDone: propTypes.bool
+    }),
+    onItemClick: propTypes.func,
+    onDeleteClick: propTypes.func,
+    onChangeStatus: propTypes.func
+};
 
 export default ToDoListItem
