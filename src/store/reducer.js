@@ -1,3 +1,5 @@
+import {TOGGLE_TODO, ADD_TODO, UPDATE_TODO, DELETE_TODO} from './actions'
+
 const initialState = {
     toDoList: []
 };
@@ -5,11 +7,11 @@ const initialState = {
 export default function (state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
-        case 'TOGGLE_TODO':
+        case TOGGLE_TODO:
             return {
                 toDoList: state.toDoList.map(todo => todo.id === payload ? { ...todo, isDone: !todo.isDone } : todo)
             };
-        case 'ADD_TODO':
+        case ADD_TODO:
             return {
                 toDoList: [
                     ...state.toDoList,
@@ -19,11 +21,11 @@ export default function (state = initialState, action) {
                     }
                 ]
             };
-        case 'UPDATE_TODO':
+        case UPDATE_TODO:
             return {
                 toDoList: state.toDoList.map(item => (item.id === payload.id ? payload : item))
             };
-        case 'DELETE_TODO': {
+        case DELETE_TODO: {
             return {
                 toDoList: state.toDoList.filter(item => (item.id !== payload))
             };
