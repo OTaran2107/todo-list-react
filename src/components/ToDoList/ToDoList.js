@@ -1,40 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import ToDoListItems from '../ToDoListItems/ToDoListItems';
 import ToDoModal from '../ToDoModal/ToDoModal';
-import api from '../../services/api';
 import './ToDoList.css'
 
-function ToDoList() {
-    const defaultToDo = () => {
-        return {
-            id: '',
-            title: '',
-            isDone: false
-        }
-    }
-    const [toDoList, setToDoList] = useState([]);
+function ToDoList({ toDoList, addToDo, updateToDo, deleteToDo, toggleToDo }) {
+    const emptyToDo = {
+        id: '',
+        title: '',
+        isDone: false
+    };
+
+    const [activeToDo, setActiveToDo] = useState(emptyToDo);
     const [modalShow, setModalShow] = useState(false);
-    const [activeToDo, setActiveToDo] = useState(defaultToDo);
 
     const onClickShowModal = () => {
         setModalShow(!modalShow);
     }
 
     const onItemEdit = (id) => {
-        const toDo = toDoList.find(function (item) { return item.id === id });
+        const toDo = toDoList.find(item => item.id === id);
         setActiveToDo(toDo);
         setModalShow(!modalShow);
-    }
-
-    const onItemChangeStatus = (id) => {
-        const toDo = toDoList.find(item => item.id === id);
-        updateToDo({ ...toDo, isDone: !toDo.isDone });
-    }
-
-    const onItemDelete = (id) => {
-        api.delete(id).then(resp => {
-            setToDoList(toDoList.filter(item => item.id !== resp.data.id));
-        });
     }
 
     const onItemChange = (toDo) => {
@@ -43,30 +29,12 @@ function ToDoList() {
         } else {
             addToDo(toDo);
         }
-    }
-
-    const addToDo = (toDo) => {
-        api.post('', toDo).then(resp => {
-            setToDoList([...toDoList, resp.data]);
-            clearToDo();
-        });
-    }
-
-    const updateToDo = (toDo) => {
-        api.put(toDo.id, toDo).then(resp => {
-            setToDoList(toDoList.map(item => (item.id === toDo.id ? toDo : item)));
-            clearToDo();
-        });
+        clearToDo();
     }
 
     const clearToDo = () => {
-        const emptyToDo = defaultToDo();
         setActiveToDo(emptyToDo);
     }
-
-    useEffect(() => {
-        api.get('').then(resp => setToDoList(resp.data));
-    }, [])
 
     return (
         <div className="todolist-container">
@@ -74,8 +42,8 @@ function ToDoList() {
             <ToDoListItems
                 list={toDoList}
                 onItemClick={onItemEdit}
-                onDeleteClick={onItemDelete}
-                onChangeStatus={onItemChangeStatus}
+                onDeleteClick={deleteToDo}
+                onChangeStatus={toggleToDo}
             />
             <button
                 onClick={onClickShowModal}
